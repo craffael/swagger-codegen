@@ -3554,6 +3554,7 @@ public class DefaultCodegen {
         List<Map<String, String>> enumVars = new ArrayList<Map<String, String>>();
         String commonPrefix = findCommonPrefixOfVars(values);
         int truncateIdx = commonPrefix.length();
+        int idx = 0;
         for (Object value : values) {
             Map<String, String> enumVar = new HashMap<String, String>();
             String enumName;
@@ -3567,7 +3568,11 @@ public class DefaultCodegen {
             }
             enumVar.put("name", toEnumVarName(enumName, var.datatype));
             enumVar.put("value", toEnumValue(value.toString(), var.datatype));
+            if(var.vendorExtensions.containsKey("x-enumNames")) {
+                enumVar.put("x-enumName", (String)((List)var.vendorExtensions.get("x-enumNames")).get(idx));
+            }
             enumVars.add(enumVar);
+            idx++;
         }
         allowableValues.put("enumVars", enumVars);
 
