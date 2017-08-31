@@ -1416,6 +1416,9 @@ public class DefaultCodegen {
                     typeAliases.put(name, impl.getType());
                     m.isAlias = true;
                 }
+                if(p instanceof IntegerProperty) {
+                    m.isInteger = true;
+                }
                 m.dataType = getSwaggerType(p);
             }
             if(impl.getEnum() != null && impl.getEnum().size() > 0) {
